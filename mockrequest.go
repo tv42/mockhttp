@@ -2,7 +2,7 @@ package mockhttp
 
 import (
 	"fmt"
-	"http"
+	"net/http"
 	"io"
 )
 
