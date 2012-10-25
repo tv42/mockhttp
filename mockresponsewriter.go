@@ -2,8 +2,7 @@ package mockhttp
 
 import (
 	"bytes"
-	"http"
-	"os"
+	"net/http"
 	"reflect"
 	"testing"
 )
@@ -18,7 +17,7 @@ func (w *MockResponseWriter) Header() http.Header {
 	return w.Headers
 }
 
-func (w *MockResponseWriter) Write(data []byte) (int, os.Error) {
+func (w *MockResponseWriter) Write(data []byte) (int, error) {
 	return w.Body.Write(data)
 }
 
