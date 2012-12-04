@@ -2,8 +2,8 @@ package mockhttp
 
 import (
 	"fmt"
-	"http"
 	"io"
+	"net/http"
 )
 
 // This is like http.NewRequest, but panics on errors.

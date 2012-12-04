@@ -1,10 +1,10 @@
 package mockhttp_test
 
 import (
-	"testing"
-	"http"
-	"strings"
 	"github.com/tv42/mockhttp.go"
+	"net/http"
+	"strings"
+	"testing"
 )
 
 func hello(w http.ResponseWriter, req *http.Request) {
