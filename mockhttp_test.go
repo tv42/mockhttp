@@ -3,6 +3,7 @@ package mockhttp_test
 import (
 	"github.com/tv42/mockhttp.go"
 	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
 )
@@ -22,11 +23,11 @@ func TestGET(t *testing.T) {
 	handler := http.HandlerFunc(hello)
 	req := mockhttp.NewRequest("GET", "http://foo.example.com/bar", nil)
 	req.Header.Set("Content-Type", "text/plain; charset=utf-8")
-	respw := mockhttp.NewResponseWriter()
+	respw := httptest.NewRecorder()
 	handler.ServeHTTP(respw, req)
 	want_hdr := make(http.Header)
 	want_hdr.Add("Content-Type", "text/plain; charset=utf-8")
-	respw.Check(t, http.StatusOK, want_hdr, "Hello, world.\n")
+	mockhttp.CheckResponse(t, respw, http.StatusOK, want_hdr, "Hello, world.\n")
 }
 
 func TestPUT(t *testing.T) {
@@ -34,10 +35,10 @@ func TestPUT(t *testing.T) {
 	body := strings.NewReader(`foo`)
 	req := mockhttp.NewRequest("PUT", "http://foo.example.com/bar", body)
 	req.Header.Set("Content-Type", "text/plain; charset=utf-8")
-	respw := mockhttp.NewResponseWriter()
+	respw := httptest.NewRecorder()
 	handler.ServeHTTP(respw, req)
 	want_hdr := make(http.Header)
 	want_hdr.Add("Content-Type", "text/plain; charset=utf-8")
 	want_hdr.Add("Allow", "GET")
-	respw.Check(t, http.StatusMethodNotAllowed, want_hdr, "Only GET supported.\n")
+	mockhttp.CheckResponse(t, respw, http.StatusMethodNotAllowed, want_hdr, "Only GET supported.\n")
 }
