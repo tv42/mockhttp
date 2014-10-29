@@ -26,9 +26,9 @@ func TestGET(t *testing.T) {
 	req.Header.Set("Content-Type", "text/plain; charset=utf-8")
 	respw := httptest.NewRecorder()
 	handler.ServeHTTP(respw, req)
-	want_hdr := make(http.Header)
-	want_hdr.Add("Content-Type", "text/plain; charset=utf-8")
-	mockhttp.CheckResponse(t, respw, http.StatusOK, want_hdr, "Hello, world.\n")
+	wantHdr := make(http.Header)
+	wantHdr.Add("Content-Type", "text/plain; charset=utf-8")
+	mockhttp.CheckResponse(t, respw, http.StatusOK, wantHdr, "Hello, world.\n")
 }
 
 func TestPUT(t *testing.T) {
@@ -38,8 +38,8 @@ func TestPUT(t *testing.T) {
 	req.Header.Set("Content-Type", "text/plain; charset=utf-8")
 	respw := httptest.NewRecorder()
 	handler.ServeHTTP(respw, req)
-	want_hdr := make(http.Header)
-	want_hdr.Add("Content-Type", "text/plain; charset=utf-8")
-	want_hdr.Add("Allow", "GET")
-	mockhttp.CheckResponse(t, respw, http.StatusMethodNotAllowed, want_hdr, "Only GET supported.\n")
+	wantHdr := make(http.Header)
+	wantHdr.Add("Content-Type", "text/plain; charset=utf-8")
+	wantHdr.Add("Allow", "GET")
+	mockhttp.CheckResponse(t, respw, http.StatusMethodNotAllowed, wantHdr, "Only GET supported.\n")
 }

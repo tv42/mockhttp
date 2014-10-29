@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// This is like http.NewRequest, but panics on errors.
+// NewRequest is like http.NewRequest, but panics on errors.
 func NewRequest(method, url string, body io.Reader) *http.Request {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
